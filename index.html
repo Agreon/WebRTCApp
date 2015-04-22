@@ -28,12 +28,12 @@
 
 	function connect(c){
 
-		con.send('Connected!!');
-		con.on('data', function(data){
+		c.send('Connected!!');
+		c.on('data', function(data){
 			console.log("Recieved data: "+data);
 		});
 
-		con.on('close', function(){
+		c.on('close', function(){
 			console.log("Disconnected");
 		});
 	}
