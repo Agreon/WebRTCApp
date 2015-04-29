@@ -18,10 +18,10 @@
   		]} 
 	});
 
-	
 	// Is ready to connect woth other peers
 	peer.on('open', function(id){
 		console.log("Your id is: "+id);
+		document.getElementById('clientID').setAttribute('value',id);
 	});
 
 	peer.on('connection', connect);
