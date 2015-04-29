@@ -6,9 +6,9 @@
 		<script src="peer.min.js"></script>
 		<script type="text/javascript">
 	
-	var peer = new Peer({
+	var peer = new Peer("Daniel2",{
 		key: 'aqunl1ui9m620529',
-		debug: 2,
+		debug: 3,
 		logFunction: function(){
 			var copy = Array.prototype.slice.call(arguments).join(' ');
 			console.log(copy);
@@ -21,7 +21,7 @@
 	
 	// Is ready to connect woth other peers
 	peer.on('open', function(id){
-		console.log("Your id is: "+id);
+		console.log("Your id is"+id);
 	});
 
 	peer.on('connection', connect);
@@ -31,7 +31,6 @@
 		c.send('Connected!!');
 		c.on('data', function(data){
 			console.log("Recieved data: "+data);
-			$("#messages").append("<li>"+data+"</li>");
 		});
 
 		c.on('close', function(){
@@ -43,7 +42,6 @@
 $(document).ready(function(){
 
 	$('#connect').click(function(){
-
 		var peerID = $("#peerID").val();
 		console.log("PeerID: "+peerID);
 
@@ -58,20 +56,7 @@ $(document).ready(function(){
 			console.log("Connected with: "+con.peer);
 			connect(con);
 		});
-	});
 
-	$('#send').click(function(){
-
-		var msg = $("#input").val();
-
-		$("#messages").append("<li>You: "+msg+"</li>");
-
-		var peerID = $("#peerID").val();
-		var conns = peer.connections[peerID];
-		for(var i = 0; i < conns.length; i++)
-		{
-			conns[i].send(msg);
-		}
 	});
 
 });
@@ -87,14 +72,5 @@ $(document).ready(function(){
 	Your ID: <input type="text" id="clientID"/><br>
 	Peer ID: <input type="text" id="peerID" /><br>
 	<input type="button" id="connect" value="Connect"/>
-
-	<br><br>
-
-	MSG: <input type="text" id="input" /><br>
-
-	<input type="button" id="send" value="Senden"/>
-
-	<ul id="messages">
-	</ul>
 </body>
 </html>
